@@ -24,7 +24,8 @@ namespace FuncSolver.MVVM
         }
 
         /// <summary>
-        /// Свойство поля _x. При установке значения оповещает систему об изменении свойства.
+        /// Свойство поля _x. При установке значения оповещает систему
+        /// об изменении свойства.
         /// </summary>
         public double X
         {
@@ -37,7 +38,8 @@ namespace FuncSolver.MVVM
         }
 
         /// <summary>
-        /// Свойство поля _y. При установке значения оповещает систему об изменении свойства.
+        /// Свойство поля _y. При установке значения оповещает систему
+        /// об изменении свойства.
         /// </summary>
         public double Y
         {
@@ -58,8 +60,8 @@ namespace FuncSolver.MVVM
         }
 
         /// <summary>
-        /// Метод высчитывает и устанавливает значение поля _f, а также оповещает 
-        /// систему об изменении свойства.
+        /// Метод высчитывает и устанавливает значение поля _f, а также  
+        /// оповещает систему об изменении свойства.
         /// </summary>
         /// <param name="a">Коэффициент а выбранной функции.</param>
         /// <param name="b">Коэффициент b выбранной функции.</param>
@@ -93,7 +95,8 @@ namespace FuncSolver.MVVM
         }
 
         /// <summary>
-        /// Реализация интерфейса INotifyPropertyChanged. Извещает систему об изменении свойства.
+        /// Реализация интерфейса INotifyPropertyChanged. Извещает систему
+        /// об изменении свойства.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
