@@ -6,7 +6,135 @@
         xmlns:local="clr-namespace:FuncSolver.MVVM"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Window.DataContext>
+        <local:AppViewModel/>
+    </Window.DataContext>
 
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="190"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel
+            Name="FuncTypesListStackPanel"
+            Grid.Row="0" 
+            Grid.Column="0">
+            <Label 
+                Content="Тип функции:"
+                Name="FuncTypeLabel"
+                Grid.Row="0"
+                Grid.Column="0"
+                FontWeight="Bold"
+                FontSize="12"
+                HorizontalAlignment="Center" 
+                Margin="10,0,10,0" 
+                VerticalAlignment="Top"/>
+            <ListBox 
+                Name="FunctionTypesListBox"
+                VerticalAlignment="Bottom"
+                Margin ="10,0,10,10"
+                ItemsSource="{Binding Functions}"
+                SelectedItem="{Binding CurrentFunction}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="12" Text="{Binding Path=FuncType}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <StackPanel
+            Name="CurrentFuncFactorsStackPanel"
+            Grid.Row="0"
+            Grid.Column="1"
+            DataContext="{Binding CurrentFunction}">
+
+            <Label
+                Content="A:"
+                Name="FactorALabel"
+                FontSize="12"
+                FontWeight="Bold"
+                HorizontalAlignment="Left"
+                Margin="10,0,0,0"/>
+            <TextBox
+                Name="FactorATexBox"
+                HorizontalAlignment="Stretch"
+                Margin="10,0,150,0"
+                VerticalContentAlignment="Top"
+                FontSize="12"
+                Text="{Binding A, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label 
+                Content="B:"
+                Name="FactorBLabel"
+                FontSize="12"
+                FontWeight="Bold"
+                HorizontalAlignment="Left"
+                Margin="10,0,0,0"/>
+            <TextBox
+                Name="FactorBTexBox"
+                HorizontalAlignment="Stretch"
+                Margin="10,2,150,2"
+                VerticalContentAlignment="Center"
+                FontSize="12"
+                Text="{Binding B, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label 
+                Content="C"
+                Name="FactorCLabel"
+                FontSize="12"
+                FontWeight="Bold"
+                HorizontalAlignment="Left"
+                Margin="10,0,0,0"/>
+
+            <ComboBox
+                Name="FactorCComboBox"
+                HorizontalAlignment="Stretch"
+                Margin="10,2,150,2"
+                FontSize="12"
+                VerticalContentAlignment="Top"
+                ItemsSource="{Binding C}"
+                SelectedItem="{Binding CurrentC}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="12" Text="{Binding}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <ScrollViewer 
+            Name="TableScrollViewer"
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            DataContext="{Binding CurrentFunction}"
+            >
+            <DataGrid 
+                Name="TableDataGrid"
+                ColumnHeaderHeight="25"
+                CanUserAddRows="True"
+                ItemsSource="{Binding VariablesSetsList}"
+                SelectedItem ="{Binding CurrentVariablesSet}"
+                AutoGenerateColumns="False">
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="x"
+                                        Binding="{Binding X, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="*"/>
+                    <DataGridTextColumn Header="y" 
+                                        Binding="{Binding Y, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="*"/>
+                    <DataGridTextColumn Header="f(x,y)"
+                                        IsReadOnly = "True"  
+                                        Binding="{Binding F}" 
+                                        Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
     </Grid>
 </Window>

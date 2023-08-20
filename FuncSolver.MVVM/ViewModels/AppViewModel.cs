@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace WpfTestApp
+namespace FuncSolver.MVVM
 {
     /// <summary>
     /// Класс, описывающий модель представления текущей программы.

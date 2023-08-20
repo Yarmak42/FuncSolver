@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace WpfTestApp
+namespace FuncSolver.MVVM
 {
     /// <summary>
     /// Класс описывает поля и методы математической функции.
