@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FuncSolver.MVVM
+﻿namespace FuncSolver.MVVM
 {
     /// <summary>
     /// Класс описывает переменные, объединённые в набор.
@@ -48,10 +46,12 @@ namespace FuncSolver.MVVM
                 if (index == -1)
                 {
                     X = 0;
+                    return;
                 }
-                else if (value[index] >= 48 && value[index] <= 57 && index >= 0)
+                if (value[index] >= 48 && value[index] <= 57 && index >= 0)
                 {
                     X = int.Parse(value);
+                    return;
                 }
             }
         }
@@ -83,10 +83,12 @@ namespace FuncSolver.MVVM
                 if (index == -1)
                 {
                     Y = 0;
+                    return;
                 }
-                else if (value[index] >= 48 && value[index] <= 57 && index >= 0)
+                if (value[index] >= 48 && value[index] <= 57 && index >= 0)
                 {
                     Y = int.Parse(value);
+                    return;
                 }
             }
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows.Media.Animation;
 
 namespace FuncSolver.MVVM
 {
@@ -26,7 +25,6 @@ namespace FuncSolver.MVVM
         {
             _funcType = funcType;
             C = new List<int>();
-            //_variablesSetsList = new BindingList<Variables>();
             _currentVariablesSet = new Variables();
             VariablesSetsList.ListChanged += ItemsOnListChanged;
         }
@@ -71,10 +69,12 @@ namespace FuncSolver.MVVM
                 if (index == -1)
                 {
                     A = 0;
+                    return;
                 }
-                else if (value[index] >= 48 && value[index] <= 57 && index >= 0)
+                if (value[index] >= 48 && value[index] <= 57 && index >= 0)
                 {
                     A = int.Parse(value);
+                    return;
                 }
             }
         }
@@ -105,10 +105,12 @@ namespace FuncSolver.MVVM
                 if (index == -1)
                 {
                     B = 0;
+                    return;
                 }
-                else if (value[index] >= 48 && value[index] <= 57 && index >= 0)
+                if (value[index] >= 48 && value[index] <= 57 && index >= 0)
                 {
                     B = int.Parse(value);
+                    return;
                 }
             }
         }
@@ -178,11 +180,11 @@ namespace FuncSolver.MVVM
             set
             {
                 if (value == null)
-                    _currentVariablesSet = new Variables();
-                else
                 {
-                    _currentVariablesSet = value;
+                    _currentVariablesSet = new Variables();
+                    return;
                 }
+                _currentVariablesSet = value;
             }
         }
 
