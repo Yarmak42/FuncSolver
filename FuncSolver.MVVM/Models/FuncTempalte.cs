@@ -67,7 +67,7 @@ namespace FuncSolver.MVVM
             get => A.ToString();
             set
             {
-                int index = value.Length - 1;
+                var index = value.Length - 1;
                 if (index == -1)
                 {
                     A = 0;
@@ -101,7 +101,7 @@ namespace FuncSolver.MVVM
             get => B.ToString();
             set
             {
-                int index = value.Length - 1;
+                var index = value.Length - 1;
                 if (index == -1)
                 {
                     B = 0;
@@ -196,7 +196,7 @@ namespace FuncSolver.MVVM
         {
             if (e.ListChangedType == ListChangedType.ItemChanged)
             {
-                int n = 0;
+                var n = 0;
                 switch (FuncType)
                 {
                     case "Линейная":

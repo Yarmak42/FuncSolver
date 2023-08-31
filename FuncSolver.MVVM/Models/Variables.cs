@@ -44,7 +44,7 @@ namespace FuncSolver.MVVM
             get => X.ToString();
             set
             {
-                int index = value.Length - 1;
+                var index = value.Length - 1;
                 if (index == -1)
                 {
                     X = 0;
@@ -79,7 +79,7 @@ namespace FuncSolver.MVVM
             get => Y.ToString();
             set
             {
-                int index = value.Length - 1;
+                var index = value.Length - 1;
                 if (index == -1)
                 {
                     Y = 0;
