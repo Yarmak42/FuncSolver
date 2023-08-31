@@ -198,30 +198,35 @@ namespace FuncSolver.MVVM
         {
             if (e.ListChangedType == ListChangedType.ItemChanged)
             {
-                var n = 0;
-                switch (FuncType)
-                {
-                    case "Линейная":
-                        n = 1;
-                        break;
-                    case "Квадратичная":
-                        n = 2;
-                        break;
-                    case "Кубическая":
-                        n = 3;
-                        break;
-                    case "4-ой степени":
-                        n = 4;
-                        break;
-                    case "5-ой степени":
-                        n = 5;
-                        break;
-                    default:
-                        break;
-                }
-                CurrentVariablesSet.F = (A * Math.Pow(CurrentVariablesSet.X, n)) 
-                    + (B * Math.Pow(CurrentVariablesSet.Y, n - 1)) + CurrentC;
+                CurrentVariablesSet.F = UpdateF();
             }  
+        }
+
+        public double UpdateF()
+        {
+            var n = 0;
+            switch (FuncType)
+            {
+                case "Линейная":
+                    n = 1;
+                    break;
+                case "Квадратичная":
+                    n = 2;
+                    break;
+                case "Кубическая":
+                    n = 3;
+                    break;
+                case "4-ой степени":
+                    n = 4;
+                    break;
+                case "5-ой степени":
+                    n = 5;
+                    break;
+                default:
+                    break;
+            }
+            return (A * Math.Pow(CurrentVariablesSet.X, n))
+                + (B * Math.Pow(CurrentVariablesSet.Y, n - 1)) + CurrentC;
         }
     }
 }
