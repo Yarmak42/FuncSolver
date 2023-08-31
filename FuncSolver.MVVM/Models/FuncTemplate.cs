@@ -202,6 +202,10 @@ namespace FuncSolver.MVVM
             }  
         }
 
+        /// <summary>
+        /// Метод вычисляет значение функции.
+        /// </summary>
+        /// <returns>Расчётное значение функции</returns>
         public double UpdateF()
         {
             var n = 0;
