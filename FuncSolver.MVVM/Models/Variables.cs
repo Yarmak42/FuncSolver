@@ -1,16 +1,14 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace FuncSolver.MVVM
 {
     /// <summary>
     /// Класс описывает переменные, объединённые в набор.
     /// </summary>
-    public class Variables : INotifyPropertyChanged
+    public class Variables : NotifyPropertyChanged
     {
-        private double _x;
-        private double _y;
+        private int _x;
+        private int _y;
         private double _f;
 
         /// <summary>
@@ -27,13 +25,34 @@ namespace FuncSolver.MVVM
         /// Свойство поля _x. При установке значения оповещает систему
         /// об изменении свойства.
         /// </summary>
-        public double X
+        public int X
         {
             get => _x;
             set
             {
                 _x = value;
-                OnPropertyChanged("X");
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(F));
+            }
+        }
+
+        /// <summary>
+        /// Свойство, непозволяющее ввести в поле X ничего кроме цифр.
+        /// </summary>
+        public string XChecker
+        {
+            get => X.ToString();
+            set
+            {
+                int index = value.Length - 1;
+                if (index == -1)
+                {
+                    X = 0;
+                }
+                else if (value[index] >= 48 && value[index] <= 57 && index >= 0)
+                {
+                    X = int.Parse(value);
+                }
             }
         }
 
@@ -41,67 +60,49 @@ namespace FuncSolver.MVVM
         /// Свойство поля _y. При установке значения оповещает систему
         /// об изменении свойства.
         /// </summary>
-        public double Y
+        public int Y
         {
             get => _y;
             set
             {
                 _y = value;
-                OnPropertyChanged("Y");
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(F));
             }
         }
 
         /// <summary>
-        /// Свойство - геттер поля _f. Возвращает значение поля.
+        /// Свойство, непозволяющее ввести в поле Y ничего кроме цифр.
+        /// </summary>
+        public string YChecker
+        {
+            get => Y.ToString();
+            set
+            {
+                int index = value.Length - 1;
+                if (index == -1)
+                {
+                    Y = 0;
+                }
+                else if (value[index] >= 48 && value[index] <= 57 && index >= 0)
+                {
+                    Y = int.Parse(value);
+                }
+            }
+        }
+        /// <summary>
+        /// Свойство поля _f. Возвращает и устанавливает значение поля.
         /// </summary>
         public double F
         {
-            get => _f;
-        }
-
-        /// <summary>
-        /// Метод высчитывает и устанавливает значение поля _f, а также  
-        /// оповещает систему об изменении свойства.
-        /// </summary>
-        /// <param name="a">Коэффициент а выбранной функции.</param>
-        /// <param name="b">Коэффициент b выбранной функции.</param>
-        /// <param name="c">Коэффициент c выбранной функции.</param>
-        /// <param name="funcType">Тип выбранной функции.</param>
-        public void SetF(double a, double b, int c, string funcType)
-        {
-            int n = 0;
-            switch (funcType)
+            get
             {
-                case "Линейная":
-                    n = 1;
-                    break;
-                case "Квадратичная":
-                    n = 2;
-                    break;
-                case "Кубическая":
-                    n = 3;
-                    break;
-                case "4-ой степени":
-                    n = 4;
-                    break;
-                case "5-ой степени":
-                    n = 5;
-                    break;
-                default:
-                    break;
+                return _f;
             }
-            _f = (a * Math.Pow(X, n)) + (b * Math.Pow(Y, n - 1)) + c;
-            OnPropertyChanged("F");
-        }
-
-        /// <summary>
-        /// Реализация интерфейса INotifyPropertyChanged. Извещает систему
-        /// об изменении свойства.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            set
+            {
+                _f = value;               
+            }
         }
     }
 }

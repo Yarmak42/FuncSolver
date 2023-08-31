@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FuncSolver.MVVM"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
         <local:AppViewModel/>
+        
     </Window.DataContext>
 
     <Grid >
@@ -67,7 +69,7 @@
                 Margin="10,0,150,0"
                 VerticalContentAlignment="Top"
                 FontSize="12"
-                Text="{Binding A, UpdateSourceTrigger=PropertyChanged}"/>
+                Text="{Binding AChecker, UpdateSourceTrigger=PropertyChanged}"/>
             <Label 
                 Content="B:"
                 Name="FactorBLabel"
@@ -81,7 +83,7 @@
                 Margin="10,2,150,2"
                 VerticalContentAlignment="Center"
                 FontSize="12"
-                Text="{Binding B, UpdateSourceTrigger=PropertyChanged}"/>
+                Text="{Binding BChecker, UpdateSourceTrigger=PropertyChanged}"/>
             <Label 
                 Content="C"
                 Name="FactorCLabel"
@@ -124,15 +126,16 @@
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="x"
-                                        Binding="{Binding X, UpdateSourceTrigger=PropertyChanged}" 
+                                        Binding="{Binding XChecker, UpdateSourceTrigger=PropertyChanged}" 
                                         Width="*"/>
-                    <DataGridTextColumn Header="y" 
-                                        Binding="{Binding Y, UpdateSourceTrigger=PropertyChanged}" 
+                    <DataGridTextColumn Header="y"
+                                        Binding="{Binding YChecker, UpdateSourceTrigger=PropertyChanged}" 
                                         Width="*"/>
                     <DataGridTextColumn Header="f(x,y)"
                                         IsReadOnly = "True"  
-                                        Binding="{Binding F}" 
-                                        Width="*"/>
+                                        Binding="{Binding F, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="*">
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>

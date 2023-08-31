@@ -1,21 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using System.Windows.Media.Animation;
 
 namespace FuncSolver.MVVM
 {
     /// <summary>
     /// Класс описывает поля и методы математической функции.
     /// </summary>
-    public class FuncTemplate : INotifyPropertyChanged
+    public class FuncTemplate : Variables
     {
         private string _funcType;
-        private double _a;
-        private double _b;
+        private int _a;
+        private int _b;
         private List<int> _c;
         private int _currentC;
-        private ObservableCollection<Variables> _variablesSetsList;
+        private BindingList<Variables> _variablesSetsList;
         private Variables _currentVariablesSet;
 
         /// <summary>
@@ -26,8 +26,9 @@ namespace FuncSolver.MVVM
         {
             _funcType = funcType;
             C = new List<int>();
-            _variablesSetsList = new ObservableCollection<Variables>();
+            //_variablesSetsList = new BindingList<Variables>();
             _currentVariablesSet = new Variables();
+            VariablesSetsList.ListChanged += ItemsOnListChanged;
         }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace FuncSolver.MVVM
             set
             {
                 _funcType = value;
-                OnPropertyChanged("FuncType");
+                OnPropertyChanged();
             }
         }
 
@@ -48,27 +49,67 @@ namespace FuncSolver.MVVM
         /// Свойство поля _a, содержащего соответствующий коэффициент функции.
         /// При установке значения оповещает систему об изменении свойства.
         /// </summary>
-        public double A
+        public int A
         {
             get => _a;
             set
             {
                 _a = value;
-                OnPropertyChanged("A");
+                OnPropertyChanged(); 
             }
         }
-                                                                 
+
+        /// <summary>
+        /// Свойство, непозволяющее ввести в поле А ничего кроме цифр.
+        /// </summary>
+        public string AChecker
+        {
+            get => A.ToString();
+            set
+            {
+                int index = value.Length - 1;
+                if (index == -1)
+                {
+                    A = 0;
+                }
+                else if (value[index] >= 48 && value[index] <= 57 && index >= 0)
+                {
+                    A = int.Parse(value);
+                }
+            }
+        }
+
         /// <summary>
         /// Свойство поля _b, содержащего соответсвующий коэффициент функции.
         /// При установке значения оповещает систему об изменении свойства.
         /// </summary>
-        public double B
+        public int B
         {
             get => _b;
             set
             {
                 _b = value;
-                OnPropertyChanged("B");
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Свойство, непозволяющее ввести в поле B ничего кроме цифр.
+        /// </summary>
+        public string BChecker
+        {
+            get => B.ToString();
+            set
+            {
+                int index = value.Length - 1;
+                if (index == -1)
+                {
+                    B = 0;
+                }
+                else if (value[index] >= 48 && value[index] <= 57 && index >= 0)
+                {
+                    B = int.Parse(value);
+                }
             }
         }
 
@@ -102,10 +143,10 @@ namespace FuncSolver.MVVM
                     default:
                         break;
                 }
-                OnPropertyChanged("C");
+                OnPropertyChanged();
             }
         }
-
+        
         /// <summary>
         /// Свойство поля _currentC, содержащего текущий коэффициет из набора С.
         /// При установке значения оповещает систему об изменении свойства. 
@@ -116,7 +157,7 @@ namespace FuncSolver.MVVM
             set
             {
                 _currentC = value;
-                OnPropertyChanged("CurrentC");
+                OnPropertyChanged();
             }
         }
 
@@ -125,15 +166,7 @@ namespace FuncSolver.MVVM
         /// значений переменных x, y, f. При установке значения оповещает 
         /// систему об изменении свойства. 
         /// </summary>
-        public ObservableCollection<Variables> VariablesSetsList
-        {
-            get => _variablesSetsList;
-            set
-            {
-                _variablesSetsList = value;
-                OnPropertyChanged("VariablesSetsList");
-            }
-        }
+        public BindingList<Variables> VariablesSetsList { get; set; } = new BindingList<Variables>();
 
         /// <summary>
         /// Свойство поля _currentVariablesSet, содержащего выбранный набор переменных.
@@ -151,20 +184,44 @@ namespace FuncSolver.MVVM
                 else
                 {
                     _currentVariablesSet = value;
-                    _currentVariablesSet.SetF(A, B, CurrentC, FuncType);
                 }
-                OnPropertyChanged("VariablesSetsList");
             }
         }
 
         /// <summary>
-        /// Реализация интерфейса INotifyPropertyChanged. 
-        /// Извещает систему об изменении свойства.
+        /// Метод высчитывает и устанавливает значение поля _f, а также  
+        /// оповещает систему об изменении свойства.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void ItemsOnListChanged(object sender, ListChangedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            if (e.ListChangedType == ListChangedType.ItemChanged)
+            {
+                int n = 0;
+                switch (FuncType)
+                {
+                    case "Линейная":
+                        n = 1;
+                        break;
+                    case "Квадратичная":
+                        n = 2;
+                        break;
+                    case "Кубическая":
+                        n = 3;
+                        break;
+                    case "4-ой степени":
+                        n = 4;
+                        break;
+                    case "5-ой степени":
+                        n = 5;
+                        break;
+                    default:
+                        break;
+                }
+                CurrentVariablesSet.F = (A * Math.Pow(CurrentVariablesSet.X, n)) 
+                    + (B * Math.Pow(CurrentVariablesSet.Y, n - 1)) + CurrentC;
+            }  
         }
     }
 }

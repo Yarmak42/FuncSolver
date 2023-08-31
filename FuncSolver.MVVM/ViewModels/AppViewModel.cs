@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace FuncSolver.MVVM
 {
     /// <summary>
     /// Класс, описывающий модель представления текущей программы.
     /// </summary>
-    public class AppViewModel : INotifyPropertyChanged
+    public class AppViewModel : NotifyPropertyChanged
     {
         private FuncTemplate _currentFunction;
 
@@ -26,7 +26,7 @@ namespace FuncSolver.MVVM
             set
             {
                 _currentFunction = value;
-                OnPropertyChanged("CurrentFunction");
+                OnPropertyChanged();
             }
         }
 
@@ -43,16 +43,6 @@ namespace FuncSolver.MVVM
                 new FuncTemplate("4-ой степени"),
                 new FuncTemplate("5-ой степени")
             };
-        }
-
-        /// <summary>
-        /// Реализация интерфейса INotifyPropertyChanged. Извещает систему
-        /// об изменении свойства.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }
