@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FuncSolver.MVVM"
-        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
@@ -122,9 +121,7 @@
                 ItemsSource="{Binding VariablesSetsList}"
                 SelectedItem ="{Binding CurrentVariablesSet}"
                 AutoGenerateColumns="False">
-
                 <DataGrid.Columns>
-
                     <DataGridTextColumn Header="x"
                                         Binding="{Binding XChecker, UpdateSourceTrigger=PropertyChanged}" 
                                         Width="*"/>
